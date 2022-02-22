@@ -124,7 +124,6 @@ export default {
         axios.get('/orders/'+this.$route.params.id)
             .then(res => {
                 this.total=  res.data.cart
-                console.log(res.data)
                 res.data.cart.forEach(item =>{
                     let images = []
                     let photo = item.product.photo

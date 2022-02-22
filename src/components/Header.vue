@@ -234,11 +234,11 @@
                         <div class="col-lg-8 col-md-9">
                             <div class="top_right text-right">
                                 <div class="header_support">
-                                   <p><i class="icon ion-android-alarm-clock"></i> Commandé avant 19h, expédié aujourd'hui - Support: <a href="tel:+0123456789">0123456789</a></p>
+                                   <p><i class="icon ion-android-alarm-clock"></i> Commandé avant 15h, expédié aujourd'hui - Support: <a href="tel:+2252722499504">+225 27 22 49 95 04</a></p>
                                 </div>
                                 <div class="header_account">
                                     <ul>
-                                        <li class="top_links"><i class="ion-gear-a"></i><a href="#" v-if="user"> {{user.prenoms}} {{user.nom}}</a> <i class="ion-chevron-down"></i>
+                                        <li class="top_links"><i class="ion-ios-contact-outline"></i> <a href="#" v-if="showUser"> {{showUser.prenoms}} {{showUser.nom}}</a> <i class="ion-chevron-down"></i>
                                             <ul class="dropdown_links">
                                                 <li v-if="user != null"><router-link to="/mon-compte">Mon compte</router-link></li>
                                                 <li v-if="user == null"><router-link to="/connexion">Se connecter</router-link></li>
@@ -260,7 +260,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-6">
                             <div class="logo">
-                                <a href=""><img src="assets/logo1.jpg" width="180" alt=""></a>
+                                <a href="https://igp.lce-ci.com"><img src="assets/logo1.jpg" width="180" alt=""></a>
                             </div>
                         </div>
                         <div class="col-lg-9 col-md-12">
@@ -317,7 +317,7 @@
                                            <i class="ion-android-cart"></i>
                                        </span>
                                         <span class="cart_title">
-                                            <span class="cart_quantity">{{cartUpdate.length}} Produits 	</span>
+                                            <span class="cart_quantity">{{cartp.length}} Produits 	</span>
                                             <span class="cart_price">{{totalRequest}} cfa</span>
                                         </span>
                                     <!-- </a> -->
@@ -325,7 +325,7 @@
                                     <!--mini cart-->
                                      <div class="mini_cart">
                                         <div class="mini_cart_inner" >
-                                            <div v-for="(item,index) in cartUpdate" :key="index" class="cart_item">
+                                            <div v-for="(item,index) in cartp" :key="index" class="cart_item">
                                                <div class="cart_img">
                                                    <a href="#" ><img :src="baseUrl+item.product.images[0]" alt=""></a>
                                                </div>
@@ -338,7 +338,6 @@
                                                 </div>
                                             </div>
                                             <div class="mini_cart_table">
-                                               
                                                 <div class="cart_total mt-10">
                                                     <span>total:</span>
                                                     <span class="price">{{totalRequest}} Fcfa</span>
@@ -352,11 +351,8 @@
                                             <div class="cart_button">
                                                 <router-link to="/caisse">Commander</router-link>
                                             </div>
-
                                         </div>
-
                                     </div>
-                                    <!--mini cart end-->
                                 </div>
                             </div>
                         </div>
@@ -370,7 +366,7 @@
 import axios from 'axios'
 export default {
     name: 'Header', 
-    props:['cartUpdate'],
+    props:['cartUpdate','userUpdate'],
     data(){
         return{
             choosecat:1,
@@ -382,13 +378,33 @@ export default {
     },
     computed: {
         totalRequest() {
-            console.log('header', this.cartUpdate)
             if (this.cartUpdate && this.cartUpdate.length > 0) {
                 return this.cartUpdate.reduce((acc, item) => acc + (item.price * item.quantity), 0);
             }else{
-                return 0
+                if (this.panier.length >0) {
+                    return this.panier.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+                }else{
+                    return 0
+                }
+                
             }
 
+        },
+        cartp(){
+            if (this.cartUpdate.length === 0) {
+                return  this.panier
+            }else{
+                return  this.cartUpdate
+            }
+            
+        },
+        showUser(){
+            if (this.userUpdate) {
+                return  this.userUpdate
+            }else{
+                return  this.user
+            }
+            
         }
     },
     mounted(){
@@ -403,17 +419,12 @@ export default {
         getCart(){
             let app = this
             this.$store.dispatch('getCart').then((response)=>{
-                console.log('cart',response)
-                if (response.state) {
-                    app.panier = response
-                }
-                
-                console.log('cart',response)
+                    app.panier = response.data                
+                    this.$emit('updateCart',app.panier)
             }).catch(()=>{
                 
             })
-
-            this.$emit('updateCart',app.panier)
+            
         },
 
         getCategories(){
@@ -425,19 +436,37 @@ export default {
         removeItem(id){
             axios.delete('/remove-cart-item/'+id)
             .then(res => {
-                console.log('product Type',res)
-                this.getCart()
+                if (res.data.state) {
+                    this.$swal.fire({
+                            icon: 'success',
+                            title: 'Suppression',
+                            text: 'Element supprimé avec succès !',
+                            showConfirmButton: false,
+                            timer: 500
+                        }) 
+                    this.getCart()
+                }
+                        
             })
             .catch(err =>{
                 console.log(err)
             })
         },
         deconnexion(){
-            axios.get('https://igp-auth.lce-ci.com/api/auth/logout')
+            let url = 'https://igp-auth.lce-ci.com/api/auth/logout'
+            // let url = 'http://192.168.1.8:8004/api/auth/logout'
+            axios.get(url)
             .then(res =>{
                 if (res.data.status) {
                     localStorage.removeItem('token')
                     localStorage.setItem('user',null)
+                        this.$swal.fire({
+                            icon: 'success',
+                            title: 'Déconnexion',
+                            text: 'déconnexion reussi avec succès !',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }) 
                     window.location.href = '/';
                 }
             })

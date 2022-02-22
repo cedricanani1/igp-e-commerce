@@ -223,7 +223,7 @@
                 <div class="tab-pane fade" v-for="(item,index) in categories" :key="index" :class="{ 'show active': index == click }" :id="item.libelle" role="tabpanel">
                     <div class="row">
                         <div class="product_carousel product_style product_column4 owl-carousel loop">
-                            <div class="col-lg-3" v-for="(product,index) in item.products" :key="index">
+                            <div class="col-lg-3" v-for="(product,index) in item.product_child" :key="index">
                                 <div class="product_items">
                                     <article class="single_product">
                                         <figure>
@@ -536,36 +536,33 @@ export default {
         }
     },
     mounted(){
-        // this.cart = JSON.parse(localStorage.getItem('panier'))
         this.baseUrl = this.$store.state.baseUrl
         this.getCart()
         this.getProduits()
         this.getProduitsByType()
         this.getBestSeller()
+        
     },
     methods: {
 
         clickShowTab(id){
-            console.log(id)
             this.click = id
         },
         clickShowModal(id){
-            console.log(id)
             this.Show = id
         },
         getProduits(){
             let app = this
             axios.get('/bestrate')
             .then(res => {
-                console.log('products',res)               
                 res.data.forEach(product =>{
                     let images = []
+                    product.quantity = 1
                     let photo = product.photo
                     images = photo.split(';')
                     product.images = images.slice(0,images.length-1)
                 })
                 app.produits = res.data
-                console.log('test',app.produits)
             })
             .catch(err =>{
                 console.log(err)
@@ -573,11 +570,13 @@ export default {
         },
         getBestSeller(){
             let app = this
-            axios.get('/bestseller')
+            axios.post('/bestproduct',{
+                status: 'delivered'
+            })
             .then(res => {
-                console.log('best', res.data)
                 res.data.forEach(product =>{
                     let images = []
+                    product.quantity=1
                     let photo = product.photo
                     images = photo.split(';')
                     product.images = images.slice(0,images.length-1)
@@ -592,10 +591,10 @@ export default {
             let app = this
             axios.get('/product-types')
             .then(res => {
-                console.log('product Type',res)
                 res.data.forEach(item =>{
-                    item.products.forEach(product => {
+                    item.product_child.forEach(product => {
                         let images = []
+                        product.quantity=1
                         let photo = product.photo
                         images = photo.split(';')
                         product.images = images.slice(0,images.length-1)
@@ -608,14 +607,12 @@ export default {
             })
         },
         clickShow(id){
-            console.log(id)
             this.imageshow = id
         },
         modal(produit){
             this.productModal = null
             this.imageshow = produit.images[0]
             this.productModal = produit
-            console.log(this.productModal)
             
         },
         getCart(){
@@ -648,7 +645,6 @@ export default {
                 }     
                 
                 this.$store.dispatch('addToPanier',productCart).then((response)=>{
-                    console.log('check',response)
                     let cat =  this.getCart()
                     cat.then(function(result){
                         app.$emit('updateCart',result)
@@ -663,6 +659,8 @@ export default {
                             showConfirmButton: false,
                             timer: 3000
                         }) 
+                        
+                        
                     }else{
                         this.$swal.fire({
                             icon: 'Attention',
@@ -674,7 +672,7 @@ export default {
                     }
                         
                 }).catch((error)=>{
-                        console.log('erreur',error)
+                        console.log(error)
                         this.loading =  false
                         this.$swal.fire({
                             icon: 'warning',
@@ -683,6 +681,7 @@ export default {
                             showConfirmButton: false,
                             timer: 3000
                         })
+                     // this.$router.push('/connexion')
                 })
             }
             

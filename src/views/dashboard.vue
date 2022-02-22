@@ -25,7 +25,7 @@
                                 <li><a href="#dashboard" data-bs-toggle="tab" class="nav-link active">Tableau de bord</a></li>
                                 <li> <a href="#orders" data-bs-toggle="tab" class="nav-link">Mes commandes</a></li>
                                 <li><a href="#address" data-bs-toggle="tab" class="nav-link">Addresses</a></li>
-                                <li><a href="#account-details" data-bs-toggle="tab" class="nav-link">Account details</a></li>
+                                <li><a href="#account-details" data-bs-toggle="tab" class="nav-link">Modifier compte</a></li>
                             </ul>
                         </div>
                     </div>
@@ -64,59 +64,50 @@
 
                                 </div>
                             </div>
-                            <div class="tab-pane" id="address">
-                               <p>Les adresses suivantes seront utilisées par défaut sur la page de paiement.</p>
-                                <h4 class="billing-address">Billing address</h4>
-                                <a href="#" class="view">Edit</a>
-                                <p><strong>Michael M Hoskins</strong></p>
+                            <div class="tab-pane" id="address" v-if="user">
+                               <p>Information</p>
+                                <p><strong>{{user.nom}} {{user.prenoms}}</strong></p>
                                 <address>
                                   <address>
-                                    <span><strong>City:</strong> Seattle</span>,
+                                    <span><strong>Email:</strong> {{user.email}}</span>,
                                     <br>
-                                    <span><strong>State:</strong> Washington(WA)</span>,
+                                    <span><strong>Contact:</strong> {{user.phone}}</span>,
                                     <br>
-                                    <span><strong>ZIP:</strong> 98101</span>,
+                                    <span><strong>Ville:</strong> {{user.ville}}</span>,
                                     <br>
-                                    <span><strong>Country:</strong> USA</span>
+                                    <span><strong>Commune:</strong> {{user.commune}}</span>
                                   </address>
                                 </address>
                             </div>
                             <div class="tab-pane fade" id="account-details">
-                                <h3>Account details </h3>
+                                <h3>détails de compte </h3>
                                 <div class="login">
                                     <div class="login_form_container">
-                                        <div class="account_login_form">
-                                            <form action="#">
-                                                <p>Already have an account? <a href="#">Log in instead!</a></p>
-                                                <div class="input-radio">
-                                                    <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Mr.</span>
-                                                    <span class="custom-radio"><input type="radio" value="1" name="id_gender"> Mrs.</span>
-                                                </div> <br>
-                                                <label>First Name</label>
-                                                <input type="text" name="first-name">
-                                                <label>Last Name</label>
-                                                <input type="text" name="last-name">
+                                        <div class="account_login_form" v-if="user">
+                                            <form @submit.prevent="compteUpdate">
+                                                <label>Nom</label>
+                                                <input type="text" v-model="user.nom" name="first-name">
+                                                <label>¨Prenoms</label>
+                                                <input type="text" v-model="user.prenoms" name="last-name">
                                                 <label>Email</label>
-                                                <input type="text" name="email-name">
-                                                <label>Password</label>
-                                                <input type="password" name="user-password">
-                                                <label>Birthdate</label>
-                                                <input type="text" placeholder="MM/DD/YYYY" value="" name="birthday">
+                                                <input type="text" v-model="user.email" >
+                                                <label>Ville</label>
+                                                <input type="text" v-model="user.ville" >
+                                                <label>Commune</label>
+                                                <input type="text" v-model="user.commune" >
+                                                <label>Mot de passe </label>
+                                                <input type="password" v-model="user.password" name="user-password">
+                                                <label>confirmation de mot de passe</label>
+                                                <input type="password" v-model="user.password_confirmation" name="user-password">
+                                                <label>Nouveau de mot de passe</label>
+                                                <input type="password" v-model="user.newPassword" name="user-password">
                                                 <span class="example">
-                                                  (E.g.: 05/31/1970)
+                                                   {{new Date()}}
                                                 </span>
                                                 <br>
-                                                <span class="custom_checkbox">
-                                                    <input type="checkbox" value="1" name="optin">
-                                                    <label>Receive offers from our partners</label>
-                                                </span>
                                                 <br>
-                                                <span class="custom_checkbox">
-                                                    <input type="checkbox" value="1" name="newsletter">
-                                                    <label>Sign up for our newsletter<br><em>You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.</em></label>
-                                                </span>
                                                 <div class="save_button primary_btn default_button">
-                                                   <button type="submit">Save</button>
+                                                   <button type="submit">Enregistrer</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -152,12 +143,17 @@ export default {
         totalRequest() {
             return this.panier.reduce((acc, item) => acc + (item.price * item.quantity), 0);
         }
+        
     },
     mounted(){
+        this.user = JSON.parse(localStorage.getItem('user'))
         this.baseUrl = this.$store.state.baseUrl
         this.panier = JSON.parse(localStorage.getItem('panier'))
-        this.user = JSON.parse(localStorage.getItem('user'))
+        
         this.getOrdersClient()
+
+        console.log()
+        
     },
     methods:{
             getOrdersClient(){
@@ -174,18 +170,28 @@ export default {
                     setTimeout(function() {
                         $('#table_id').DataTable({
                             pageLength: 10,
-                            // data: res.data,
                             'order': [],
-                            // columns: [
-                            //     { data: 'order_number' },
-                            //     { data: 'created_at' },
-                            //     { data: 'status' },
-                            //     { data: 'total_amount' },
-                            //     { data: 'id' }
-                            // ]
                         });
                     }, 1000);
                     this.orders = res.data
+                })
+            },
+            compteUpdate(){
+                axios.post('https://igp-auth.lce-ci.com/api/auth/modify-account',this.user)
+                .then(res =>{
+                    console.log(res.data)
+                    if (res.data.status) {
+                            this.$emit('updateUser',res.data.user)
+                            this.$swal.fire({
+                                icon: 'success',
+                                title: 'Modification',
+                                text: 'Compte modifié avec succès !',
+                                showConfirmButton: false,
+                                timer: 1000
+                            }) 
+                            
+                    }
+                    
                 })
             },
             removeItem(id){
@@ -208,7 +214,6 @@ export default {
                         localStorage.setItem('user',null)
                         this.$router.push('/')
                     }
-                    console.log('status',res.data)
                 })
             },
     }

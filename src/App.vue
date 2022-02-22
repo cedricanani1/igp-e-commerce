@@ -1,6 +1,6 @@
 <template>
-    <Header :cartUpdate="cartUpdate" />
-      <router-view @update-cart="updateToCart($event)" :key="$route.path"/>
+    <Header :cartUpdate="cartUpdate" :userUpdate="user" />
+      <router-view @update-cart="updateToCart($event)" @update-user="updateUser($event)" :key="$route.path"/>
     <Footer />
 </template>
 <script>
@@ -12,7 +12,8 @@ export default {
   name: 'Home',
   data(){
         return{
-            cartUpdate:[]
+            cartUpdate:[],
+            user:null
         }
     },
   components: {
@@ -21,8 +22,10 @@ export default {
   },
   methods:{
     updateToCart(test){
-      this.cartUpdate= test
-      console.log(test)
+      this.cartUpdate= test.data
+    },
+    updateUser(user){
+      this.user= user
     }
   }
 }

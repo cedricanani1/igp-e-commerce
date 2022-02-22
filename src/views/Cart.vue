@@ -138,8 +138,7 @@ export default {
     getCart(){
         let app = this
         this.$store.dispatch('getCart').then((response)=>{
-            console.log('cart',response)
-            app.panier = response
+            app.panier = response.data
         }).catch(()=>{
             
         })
@@ -173,13 +172,11 @@ export default {
                 })
         })
     },
-
     updatePanier(){
-            axios.post('/update-cart-item/',{
+            axios.post('/update-cart-item',{
                 cart:this.panier
             })
             .then(res => {
-                console.log('product Type',res)
                 if (res.data.state) {
                     this.$swal.fire({
                         icon: 'success',
@@ -188,7 +185,7 @@ export default {
                         showConfirmButton: false,
                         timer: 3000
                     }) 
-            }
+                }
                 this.getCart()
             })
             .catch(err =>{
@@ -198,8 +195,10 @@ export default {
     removeItem(id){
             axios.delete('/remove-cart-item/'+id)
             .then(res => {
-                console.log('product Type',res)
-                this.getCart()
+                if (res.data.state) {
+                    this.getCart()
+                }
+                
             })
             .catch(err =>{
                 console.log(err)

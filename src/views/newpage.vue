@@ -32,7 +32,6 @@ export default {
         // getcart(){
         //     axios.get('http://192.168.1.9:8003/api/cars')
         //     .then(assita => {
-        //         console.log('console',assita.data)
         //         this.name = assita.data
         //     })
         //     .catch(err =>{

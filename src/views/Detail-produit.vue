@@ -6,8 +6,8 @@
                 <div class="col-12">
                     <div class="breadcrumb_content">
                         <ul>
-                            <li><a href="">home</a></li>
-                            <li>product details</li>
+                            <li><a href="/">Accueil</a></li>
+                            <li>détails de produit</li>
                         </ul>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                             </div>
                             
                             <div class="product_variant quantity">
-                                <label>quantité</label>
+                                <label>Quantité</label>
                                 <input min="1"  v-model="article.quantity" type="number">
                                 <button class="button" type="submit" @click="addToPanier(article)">Ajouter au panier</button>  
                             </div>
@@ -131,24 +131,23 @@
                                 <li >
                                     <a class="active" data-bs-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Description</a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                      <a data-bs-toggle="tab" href="#sheet" role="tab" aria-controls="sheet" aria-selected="false">Specification</a>
-                                </li>
+                                </li> -->
                                 <li>
-                                   <a data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Avis (1)</a>
+                                   <a data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Avis</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="info" role="tabpanel" >
                                 <div class="product_info_content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.</p>
-                                    <p>Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem, quis fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi. Cras neque metus, consequat et blandit et, luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget.</p>
+                                    <p>{{article.description}}</p>
                                 </div>    
                             </div>
                             <div class="tab-pane fade" id="sheet" role="tabpanel" >
                                 <div class="product_d_table">
-                                   <form action="#">
+                                   <!-- <form action="#">
                                         <table>
                                             <tbody>
                                                 <tr>
@@ -165,7 +164,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    </form>
+                                    </form> -->
                                 </div>
                                 <div class="product_info_content">
                                     <p>Fashion has been creating well-designed collections since 2010. The brand offers feminine designs delivering stylish separates and statement dresses which have since evolved into a full ready-to-wear collection in which every item is a vital part of a woman's wardrobe. The result? Cool, easy, chic looks with youthful elegance and unmistakable signature style. All the beautiful pieces are made in Italy and manufactured with the greatest attention. Now Fashion extends to a range of accessories including shoes, hats, belts and more!</p>
@@ -174,7 +173,6 @@
 
                             <div class="tab-pane fade" id="reviews" role="tabpanel" >
                                 <div class="reviews_wrapper">
-                                    <h2>1 review for Donec eu furniture</h2>
                                     <div class="reviews_comment_box" v-for="(art,index) in article.rate" :key="index">
                                         <div class="comment_thmb">
                                             <img src="assets/img/blog/comment2.jpg" alt="">
@@ -186,7 +184,7 @@
                                                        <li v-for="n in Number(art.rate)" :key="n"><a href=""><i class="fa fa-star" aria-hidden="true"></i></a></li>
                                                    </ul>
                                                 </div>
-                                                <p><strong>admin </strong>- {{art.created_at}}</p>
+                                                <p><strong></strong>{{art.created_at}}</p>
                                                 <span>{{art.message}}</span>
                                             </div>
                                         </div>
@@ -198,19 +196,17 @@
                                     <div class="product_rating mb-10">
                                        <h3>Vos notes</h3>
                                         <ul>
-                                           <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                           <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                           <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                           <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                           <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                           <li v-for="n in 5" :key="n">
+                                               <i class="fa fa-star" :class="n < star+1 ? 'checked':'' " aria-hidden="false" @click="rate(n)"></i>
+                                            </li>
                                        </ul>
                                     </div>
                                     <div class="product_review_form">
-                                        <form action="#">
+                                        <form @submit="sendMessage">
                                             <div class="row">
                                                 <div class="col-12">
                                                     <label for="review_comment">Votre avis</label>
-                                                    <textarea name="comment" id="review_comment" ></textarea>
+                                                    <textarea v-model="message" name="comment" id="review_comment" ></textarea>
                                                 </div> 
                                                  
                                             </div>
@@ -243,7 +239,7 @@
                         <article class="single_product">
                             <figure>
                                <div class="product_name">
-                                   <h4><a href=""> {{productCo.libelle}} </a></h4>
+                                <h4><router-link :to="'/'+productCo.id+'/detail-produit'">{{productCo.libelle}}</router-link></h4>
                                </div>
                                <div class="product_rating">
                                    <ul>
@@ -305,7 +301,7 @@
                                         <span class="label_sale">Vente !</span>
                                     </div>
                                     <div class="quick_button">
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box"  title="quick view"> Quick View</a>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box"  title="Achat Rapide"> Achat Rapide</a>
                                     </div>
                                 </div>
                                 <div class="product_footer">
@@ -330,6 +326,8 @@
 <script>
 
 import axios from 'axios'
+import moment from "moment";
+moment.locale("fr");
 
 export default {
 
@@ -343,7 +341,9 @@ export default {
             article_id: 0,
             cart:[],
             productConnexes:[],
-            bestseller:[]
+            bestseller:[],
+            star:0,
+            message:''
         }
     },
     mounted(){
@@ -354,98 +354,145 @@ export default {
         this.baseUrl = this.$store.state.baseUrl
     },
     methods: {
-            getArticle(){
-                let app =  this
-                axios.get('products/'+this.$route.params.id)
-                .then(res => {
-                    console.log('yeyeyeyey',res.data)
-                    this.getProduits(res.data.type.slug)
-                    let article = res.data
-                    let images = []
-                    let photo = article.photo
-                    images = photo.split(';')
-                    app.article = article
-                    app.article.quantity = 1
-                    app.article.images = images.slice(0,images.length-1)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-            },
-            getCart(){
-                    let app = this
+        rate(n){
+            this.star=n
+        },
+        sendMessage(){
+            axios.post('/rating',{
+                product_id:this.$route.params.id,
+                rate:this.star,
+                message:this.message,
+            })
+            .then(res => {
+
+                this.$swal.fire({
+                        icon: 'warning',
+                        title: 'Attention !',
+                        text: res.data.message,
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                
+              this.panier=  res.data
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+        },
+        getArticle(){
+            let app =  this
+            axios.get('products/'+this.$route.params.id)
+            .then(res => {
+                    res.data.rate.forEach((element) => {
+                        element.created_at = moment(element.created_at).format(
+                        "Do MMMM YYYY"
+                        );
+                        element.updated_at = moment(element.updated_at).format(
+                        "Do MMMM YYYY"
+                        );
+                    });
+                this.getProduits(res.data.type.slug)
+                let article = res.data
+                let images = []
+                let photo = article.photo
+                images = photo.split(';')
+                app.article = article
+                app.article.quantity = 1
+                app.article.images = images.slice(0,images.length-1)
+
+                    
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        },
+        getCart(){
+            return new Promise((resolve,reject) =>{
+                let app = this
                 this.$store.dispatch('getCart').then((response)=>{
                     app.cart = response
-                }).catch(()=>{
-                    
+                    resolve(app.cart)
+                }).catch((error)=>{
+                    reject(error)
                 })
-            },
-            addToPanier(productCart){
-                let app = this
-                productCart.panier = this.cart 
-                if (this.$refs.photo) {
-                    productCart.photo = this.$refs.photo.files[0]
-                }     
-                
-                this.$store.dispatch('addToPanier',productCart).then((response)=>{
-                    this.getCart()
-                    if (response.state) {
-                        app.$swal.fire({
-                                icon: 'success',
-                                title: 'Panier',
-                                text: 'Article ajouté au panier avec succès !',
-                                showConfirmButton: false,
-                                timer: 3000
-                            }) 
-                    }
-                        
-                }).catch(()=>{
-                    this.$swal.fire({
-                            icon: 'warning',
-                            title: 'Produit existant',
-                            text: 'Ce Produit est deja dans votre panier!',
+            })
+        },
+        addToPanier(productCart){
+            let app = this
+            productCart.panier = this.cart 
+            if (this.$refs.photo) {
+                productCart.photo = this.$refs.photo.files[0]
+            }     
+            
+            this.$store.dispatch('addToPanier',productCart).then((response)=>{
+                let cat =  this.getCart()
+                    cat.then(function(result){
+                        app.$emit('updateCart',result)
+                    })
+                if (response.state) {
+                    app.$swal.fire({
+                            icon: 'success',
+                            title: 'Panier',
+                            text: 'Article ajouté au panier avec succès !',
                             showConfirmButton: false,
                             timer: 3000
-                        })
-                })
-            },
-            getProduits(slug){
-
-                axios.get('/products-type-slug/'+slug)
-                .then(res => {
-                    console.log(res.data)
-                    this.productConnexes = res.data
-                    this.productConnexes.forEach(product =>{
-                        let images = []
-                        product.quantity=1
-                        let photo = product.photo
-                        images = photo.split(';')
-                        product.images = images.slice(0,images.length-1)
+                        }) 
+                }
+                    
+            }).catch(()=>{
+                this.$swal.fire({
+                        icon: 'warning',
+                        title: 'Produit existant',
+                        text: 'Ce Produit est deja dans votre panier!',
+                        showConfirmButton: false,
+                        timer: 3000
                     })
+            })
+        },
+        getProduits(slug){
 
+            axios.get('/products-type-slug/'+slug)
+            .then(res => {
+                
+                res.data.product_child.forEach(product =>{
+                    let images = []
+                    product.quantity=1
+                    let photo = product.photo
+                    images = photo.split(';')
+                    product.images = images.slice(0,images.length-1)
                 })
-                .catch(err =>{
-                    console.log(err)
+                this.productConnexes = res.data.product_child
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+        },
+        getBestSeller(){
+            let app = this
+            axios.post('/bestproduct',{
+                    status:'delivered'
+                }
+            )
+            .then(res => {
+                res.data.forEach(product =>{
+                    let images = []
+                    let photo = product.photo
+                    product.quantity=1
+                    images = photo.split(';')
+                    product.images = images.slice(0,images.length-1)
                 })
-            },
-            getBestSeller(){
-                let app = this
-                axios.get('/bestseller')
-                .then(res => {
-                    console.log('best', res.data)
-                    res.data.forEach(product =>{
-                        let images = []
-                        let photo = product.photo
-                        images = photo.split(';')
-                        product.images = images.slice(0,images.length-1)
-                    })
-                    app.bestseller = res.data
-                })
-                .catch(err =>{
-                    console.log(err)
-                })
-            },
+                app.bestseller = res.data
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+        },
     }
 
 }
 </script>
+<style scoped>
+.checked {
+  color: orange;
+}
+</style>

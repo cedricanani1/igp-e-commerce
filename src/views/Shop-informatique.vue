@@ -83,36 +83,6 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="product_content list_content">
-                                        <div class="product_name">
-                                               <h4><a href="product-details.html">Nostrum exercitationem itae neque nulla nec posuere sem</a></h4>
-                                        </div>
-                                        <div class="product_rating">
-                                           <ul>
-                                               <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                               <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                               <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                               <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                               <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                           </ul>
-                                        </div>
-                                        <div class="price_box"> 
-                                            <span class="old_price">$86.00</span> 
-                                            <span class="current_price">$79.00</span>
-                                        </div>
-                                        <div class="product_desc">
-                                            <p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Vivamus adipiscing nisl ut dolor dignissim semper. Nulla luctus malesuada tincidunt. Class aptent taciti sociosqu ..</p>
-                                        </div>
-                                        <div class="action_links">
-                                             <ul>
-                                                <li class="add_to_cart"><a href="cart.html" title="Ajouter au panier">Addss to cart</a></li>
-
-                                                <li class="wishlist"><a href="wishlist.html"  title="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-
-                                                <li class="compare"><a href="#" title="Add to Compare"><i class="ion-shuffle"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
                                 </figure>
                             </article>
                         </div>
@@ -139,80 +109,6 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </div>
-                        <div class="widget_list">
-                            <h3>Compare Products</h3>
-                            <div class="recent_product_container">
-                                <article class="recent_product_list">
-                                    <figure>
-                                        <div class="product_thumb">
-                                            <a href="product-details.html"><img src="/assets/img/product/product1.jpg" alt=""></a>
-                                        </div>
-                                        <div class="product_content">
-                                            <h4><a href="product-details.html">Aliquam lobortis pellentesque nisi</a></h4>
-                                            <div class="product_rating">
-                                               <ul>
-                                                   <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                   <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                   <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                   <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                   <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                               </ul>
-                                           </div>
-                                            <div class="price_box">
-                                                <span class="old_price">$70.00</span> 
-                                                <span class="current_price">$65.00</span> 
-                                            </div>
-                                        </div>
-                                    </figure>
-                                </article>
-                                <article class="recent_product_list">
-                                    <figure>
-                                        <div class="product_thumb">
-                                            <a href="product-details.html"><img src="/assets/img/product/product2.jpg" alt=""></a>
-                                        </div>
-                                        <div class="product_content">
-                                            <h4><a href="product-details.html">Convallis quam sit vitae sodales neque</a></h4>
-                                            <div class="product_rating">
-                                               <ul>
-                                                   <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                   <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                   <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                   <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                   <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                               </ul>
-                                           </div>
-                                            <div class="price_box">
-                                                <span class="old_price">$70.00</span> 
-                                                <span class="current_price">$65.00</span> 
-                                            </div>
-                                        </div>
-                                    </figure>
-                                </article>
-                                <article class="recent_product_list">
-                                    <figure>
-                                        <div class="product_thumb">
-                                            <a href="product-details.html"><img src="/assets/img/product/product3.jpg" alt=""></a>
-                                        </div>
-                                        <div class="product_content">
-                                            <h4><a href="product-details.html">Cillum dolore tortor nisl fermentum</a></h4>
-                                            <div class="product_rating">
-                                               <ul>
-                                                   <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                   <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                   <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                   <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                                   <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                               </ul>
-                                           </div>
-                                            <div class="price_box">
-                                                <span class="old_price">$70.00</span> 
-                                                <span class="current_price">$65.00</span> 
-                                            </div>
-                                        </div>
-                                    </figure>
-                                </article>
-                            </div>
                         </div>
                         
                     </aside>
@@ -345,7 +241,9 @@ export default {
         productModal:{'quantity':1},
         click:0,
         cart:[],
-        trier:{},
+        trier:{
+            type:[]
+        },
         sort:{},
         exampleItems:[],
         pageOfItems: [],
@@ -375,36 +273,35 @@ export default {
             })
             this.produits = res.data
             this.exampleItems = this.produits
-            console.log('type',res.data)
         })
     },
     getCategories(){
             axios.get('/product-types')
             .then(res =>{
                 this.categories = res.data
-                console.log('type',this.categories)
             })
     },
     clickShow(id){
-        console.log(id)
         this.click = id
     },
     getProduits(){
         axios.get('/products-type-slug/'+this.$route.params.slug)
         .then(res => {
-            this.produits = res.data
+            this.produits = res.data.product_child
             this.trier.key=0
-            this.trier.type=this.produits[0].product_type_id
-            console.log(this.produits)
             this.produits.forEach(product =>{
+                if (!this.trier.type.includes(product.product_type_id)) {
+                    this.trier.type.push(product.product_type_id)
+                }
+                
                 let images = []
                 product.quantity=1
                 let photo = product.photo
                 images = photo.split(';')
                 product.images = images.slice(0,images.length-1)
             })
+
             this.exampleItems = this.produits
-            console.log(this.posts)
         })
         .catch(err =>{
             console.log(err)
@@ -416,14 +313,18 @@ export default {
     modal(produit){
         this.productModal = produit
     },
+
     getCart(){
-        let app = this
-        this.$store.dispatch('getCart').then((response)=>{
-            app.cart = response
-        }).catch(()=>{
-            
-        })
-    },
+            return new Promise((resolve,reject) =>{
+                let app = this
+                this.$store.dispatch('getCart').then((response)=>{
+                    app.cart = response
+                    resolve(app.cart)
+                }).catch((error)=>{
+                    reject(error)
+                })
+            })
+        },
     addToPanier(productCart){
         if (!productCart.quantity) {
             this.$swal.fire({
@@ -440,27 +341,53 @@ export default {
             if (this.$refs.photo) {
                 productCart.photo = this.$refs.photo.files[0]
             }     
-            
+           
             this.$store.dispatch('addToPanier',productCart).then((response)=>{
-                this.getCart()
-                if (response.state) {
-                    app.$swal.fire({
+
+
+                    let cat =  this.getCart()
+                    cat.then(function(result){
+                        app.$emit('updateCart',result)
+                    })
+                    this.loading =  false
+                    if (response.state) {
+                        
+                        app.$swal.fire({
                             icon: 'success',
                             title: 'Panier',
                             text: 'Article ajouté au panier avec succès !',
                             showConfirmButton: false,
                             timer: 3000
                         }) 
-                }
+                        
+                        var modal = document.getElementById('modal_box');
+                        var over = document.getElementsByClassName('modal-backdrop');
+                        // window.onclick = function(event) {
+                            // if (event.target == modal) {
+                                
+                                modal.style.display = "none";
+                                over[0].style.display = "none";
+                            // }
+                        // }
+                    }else{
+                        this.$swal.fire({
+                            icon: 'Attention',
+                            title: 'une erreur s`\'est produite',
+                            text: response.data.message,
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                    }
                     
-            }).catch(()=>{
-                this.$swal.fire({
-                        icon: 'warning',
-                        title: 'Produit existant',
-                        text: 'Ce Produit est deja dans votre panier!',
-                        showConfirmButton: false,
-                        timer: 3000
-                    })
+            }).catch((error)=>{
+                        this.loading =  false
+                        this.$swal.fire({
+                            icon: 'warning',
+                            title: 'Attention !',
+                            text: error.message,
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
             })
         }
         
